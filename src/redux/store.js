@@ -15,13 +15,12 @@ const giphList = (state = [], action) => {
 };
 
 function* fetchGiphs(action) {
-    console.log('ACTION' , action)
   try {
-    // to pass Param with GET, you must use /?${action.payload}
+    // to pass Param with GET, you must use api/search/${action.payload}
         // action.payload === newInput from SearchGiphs form
-    const giphResponse = yield axios.get(`/api/search/?${action.payload}`);
+    const giphResponse = yield axios.get(`/api/search/${action.payload}`);
     // yield put to add response data to store/state giphList()
-    yield put({ type: "ADD_GIPHS", payload: giphResponse });
+    yield put({ type: "ADD_GIPHS", payload: giphResponse.data });
   } catch (error) {
     console.log("Theres an error in fetchGiphs", error);
   }
