@@ -23,13 +23,40 @@ router.get('/', (req, res) => {
 
 // add a new favorite
 router.post('/', (req, res) => {
-  res.sendStatus(201);
+  const sqlText = `
+  INSERT INTO "favorites"
+  ("url")
+  VALUES ($1);
+  `
+  const sqlParams = [req.body.url]
+
+  pool.query(sqlText, sqlParams)
+
+  .then(result => {
+    res.sendStatus(201)
+  })
+  .catch(err => {
+    console.log('Error POSTing favorite:', err)
+    res.sendStatus(500)
+  })
 });
 
 // update a favorite's associated category
 router.put('/:id', (req, res) => {
   // req.body should contain a category_id to add to this favorite image
-  res.sendStatus(200);
+  const sqlText = `
+  UPDATE "favorites" SET category_id = ($2) WHERE "id"=($1);
+  `
+  const sqlParams = [req.params.id,req.body.category_id]
+  console.log("REQ.PARAMS:", req.params)
+  pool.query(sqlText, sqlParams)
+  .then(result => {
+    res.sendStatus(200);
+  })
+  .catch(err => {
+    console.log('Error Updating favorite:', err)
+    res.sendStatus(500)
+  })
 });
 
 // delete a favorite
