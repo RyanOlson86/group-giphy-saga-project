@@ -5,15 +5,15 @@ require('dotenv').config()
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    // console.log('GET', req.body)
+router.get('/:search', (req, res) => {
     // initialize an API Key var with process.env.API_KEY
     const apiKey = process.env.GIPHY_API_KEY;
     // initialize a limit var. This will be used as a search param to limit our search results
     const limit = '10'
-    // initialize searchParam to req.body.search.
-        // req.body.search === newInput from SearchGiphs form
-    const searchParam = req.body.search
+    // initialize searchParam to req.params.search.
+        // req.params.search === newInput from SearchGiphs form
+    const searchParam = req.params.search
+
     // axios.get(search endpoint with:
         // ?api_key=${apikey}   
         // &q=${searchParam}
