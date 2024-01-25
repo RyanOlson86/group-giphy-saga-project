@@ -1,0 +1,32 @@
+.gif-box {
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    margin: 35px;
+    border: solid 3px black;
+    height: 500px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(221, 195, 243);
+}
+
+.all-gifs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.gif-box > button {
+    height: 40px;
+    width: 200px;
+    margin-bottom: 10px;
+    background-color: rgb(93, 93, 255);
+    color: white;
+}
+
+.gif-box > img {
+    max-width: 400px;
+    max-height: 440px;
+}
