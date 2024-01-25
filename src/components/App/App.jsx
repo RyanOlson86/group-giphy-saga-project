@@ -1,12 +1,13 @@
 import GiphList from "../GiphList/GiphList";
 import SearchGiphs from "../SearchGiphs/SearchGiphs";
+import './App.css'
 
 
 
 function App() {
 
   return (
-    <div>
+    <div className="app">
       <h1>Giphy Search!</h1>
       <SearchGiphs />
       <GiphList />
