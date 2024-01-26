@@ -4,7 +4,8 @@
     flex-direction: column;
     margin: 35px;
     border: solid 3px black;
-    height: 500px;
+    border-radius: 10px;
+    max-height: 500px;
     justify-content: space-between;
     align-items: center;
     background-color: rgb(221, 195, 243);
@@ -22,11 +23,17 @@
     height: 40px;
     width: 200px;
     margin-bottom: 10px;
+    margin-top: 10px;
     background-color: rgb(93, 93, 255);
     color: white;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    border-radius: 5px;
 }
 
 .gif-box > img {
     max-width: 400px;
     max-height: 440px;
+    border-top-left-radius: 5px;
+    border-top-left-radius: 5px;
 }
