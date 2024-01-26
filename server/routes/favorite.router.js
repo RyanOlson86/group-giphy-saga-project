@@ -8,7 +8,8 @@ router.get('/', (req, res) => {
   const sqlText = `
   SELECT favorites.id, favorites.url, categories.name
   FROM "favorites"
-  JOIN categories ON categories.id = favorites.category_id;
+  JOIN categories ON categories.id = favorites.category_id
+  ORDER BY "id" ASC;
   `
   pool.query(sqlText)
 
