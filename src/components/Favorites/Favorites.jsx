@@ -6,17 +6,26 @@ import FavoriteItem from '../FavoriteItem/FavoriteItem'
 
 
 const FavoriteList = () => {
-    const reduxStore = useSelector(store => store.favoriteList)
+    const favoriteStore = useSelector(store => store.favoriteList)
+    
     const dispatch = useDispatch()
     
     useEffect(()=>{
         dispatch({type: 'FETCH_FAVORITES'})
+        dispatch({type: 'FETCH_CATEGORIES'})
     }, [])
 
     return (
         <div className='all-gifs'>
-            {reduxStore.map(gif => (
-                <FavoriteItem gif={gif}/>
+            {/* <div>
+            {categoryStore.map(cat => (
+                <div>{cat.id}  {cat.name}</div>
+            ))}
+            </div> */}
+            
+
+            {favoriteStore.map(gif => (
+                <FavoriteItem gif={gif} key={gif.id}/>
             ))}
         </div>
     )
