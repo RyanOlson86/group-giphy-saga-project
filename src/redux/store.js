@@ -22,6 +22,25 @@ const favoriteList = (state = [], action) => {
   }
 }
 
+const categoryList = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_CATEGORIES':
+      return action.payload
+    default:
+      return state
+  }
+}
+
+function* fetchCategories(action){
+  try {
+    const categoryResponse = yield axios.get('/api/categories')
+    yield put({type: 'ADD_CATEGORIES', payload: categoryResponse.data})
+    
+  } catch (error) {
+    console.log('Theres an error in fetchCategories')
+  }
+}
+
 function* updateCategory(action) {
   try { 
     yield axios.put(`/api/favorites/${action.payload.gifId}`, {category_id : action.payload.catId})
@@ -61,19 +80,18 @@ function* addFavorite(action) {
   }
 }
 
-
-
-
+// Root Saga
 function* rootSaga() {
     yield takeLatest('FETCH_GIPHS', fetchGiphs)
     yield takeLatest('FETCH_FAVORITES', fetchFavorites)
     yield takeLatest('ADD_FAVORITE', addFavorite)
     yield takeLatest('UPDATE_CATEGORY', updateCategory)
+    yield takeLatest('FETCH_CATEGORIES', fetchCategories)
 }
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
-  combineReducers({ giphList, favoriteList }),
+  combineReducers({ giphList, favoriteList, categoryList }),
   applyMiddleware(sagaMiddleware, logger)
 );
 
