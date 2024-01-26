@@ -28,6 +28,7 @@ router.post('/', (req, res) => {
   ("url")
   VALUES ($1);
   `
+  console.log(req.body)
   const sqlParams = [req.body.url]
 
   pool.query(sqlText, sqlParams)

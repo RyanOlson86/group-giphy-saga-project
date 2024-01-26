@@ -14,6 +14,14 @@ const giphList = (state = [], action) => {
   }
 };
 
+const favoriteList = (state = [], action) => {
+  switch (action.type) {
+    case "STORE_FAVORITES":
+      return action.payload
+    default: return state
+  }
+}
+
 function* fetchGiphs(action) {
   try {
     // to pass Param with GET, you must use api/search/${action.payload}
@@ -26,13 +34,37 @@ function* fetchGiphs(action) {
   }
 }
 
+function* fetchFavorites(action) {
+  try {
+    const favoriteGiph = yield axios.get(`/api/favorites/`);
+    yield put({ type: "STORE_FAVORITES", payload: favoriteGiph.data });
+  } catch (error) {
+    console.log("Theres an error in fetchFavorites", error);
+  }
+}
+
+function* addFavorite(action) {
+  console.log(action.payload)
+  try{
+    yield axios.post(`/api/favorites`, {url: action.payload})
+    yield put({type: 'FETCH_FAVORITES'})
+  }catch(error){
+    console.log('Error adding favorite:', error)
+  }
+}
+
+
+
+
 function* rootSaga() {
     yield takeLatest('FETCH_GIPHS', fetchGiphs)
+    yield takeLatest('FETCH_FAVORITES', fetchFavorites)
+    yield takeLatest('ADD_FAVORITE', addFavorite)
 }
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
-  combineReducers({ giphList }),
+  combineReducers({ giphList, favoriteList }),
   applyMiddleware(sagaMiddleware, logger)
 );
 
