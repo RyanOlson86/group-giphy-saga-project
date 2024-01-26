@@ -22,6 +22,14 @@ const favoriteList = (state = [], action) => {
   }
 }
 
+function* updateCategory(action) {
+  try { 
+    yield axios.put(`/api/favorites/${action.payload.gifId}`, {category_id : action.payload.catId})
+    yield put({type: 'FETCH_FAVORITES' })
+  } catch (error){
+   console.log('Theres an error in updateCategor')
+}
+}
 function* fetchGiphs(action) {
   try {
     // to pass Param with GET, you must use api/search/${action.payload}
@@ -60,6 +68,7 @@ function* rootSaga() {
     yield takeLatest('FETCH_GIPHS', fetchGiphs)
     yield takeLatest('FETCH_FAVORITES', fetchFavorites)
     yield takeLatest('ADD_FAVORITE', addFavorite)
+    yield takeLatest('UPDATE_CATEGORY', updateCategory)
 }
 const sagaMiddleware = createSagaMiddleware();
 
